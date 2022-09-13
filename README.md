@@ -1,4 +1,4 @@
-# flutter_application_1
+# recipe_book_figma
 
 A new Flutter project.
 
