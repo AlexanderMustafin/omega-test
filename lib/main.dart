@@ -217,6 +217,7 @@ class MainPage extends StatelessWidget {
                 ],)
               ),
               Container(
+                margin: const EdgeInsets.only(top: 42),
                 alignment: Alignment.center,
                 width: 1200,
                 child: Row(
@@ -245,7 +246,7 @@ class MainPage extends StatelessWidget {
                     child: const table_widget(
                       text1: "Детское",
                       text2: "Самые полезные блюда которые можно детям любого возраста", 
-                      iconString: 'image/ic-menu.png',),
+                      iconString: 'image/children.png',),
                   ),
                   Container(
                     width: 278,
@@ -257,7 +258,7 @@ class MainPage extends StatelessWidget {
                     child: const table_widget(
                       text1: "От шеф-поваров",
                       text2: "Требуют умения, времени и терпения, зато как в ресторане", 
-                      iconString: 'image/ic-menu.png',),
+                      iconString: 'image/schef.png',),
                   ),
                   Container(
                     width: 278,
@@ -269,37 +270,135 @@ class MainPage extends StatelessWidget {
                     child: const table_widget(
                       text1: "На праздник",
                       text2: "Чем удивить гостей, чтобы все были сыты за праздничным столом", 
-                      iconString: 'image/ic-menu.png',),
+                      iconString: 'image/holidays.png',),
                   ),
                 ],)
               ),
               Container(
-                width: 1129,
-                color: Colors.red,
+                width: 1150,
                 height: 543,
                 margin: EdgeInsets.only(top: 157),
                 child: Expanded(
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset('image/Rectangle8.png'),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Row(children: [
-                          Icon(Icons.favorite_border),
-                          Text('356'),
-                          Icon(Icons.lock_clock_outlined),
-                          Text('35 минут'),
-                        ],)
+                      Column(
+                        children: [
+                          Image.asset('image/Rectangle8.png'),
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          count_like_and_time(),
+                          Container(
+                            margin: EdgeInsets.fromLTRB(73, 42.5, 0, 0),
+                            width: 513,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Image.asset('image/smile_alll.png', width: 100.51, height: 80,),
+                                SizedBox(height: 32,),
+                                const Text('Тыквенный супчик на кокосовом молоке',
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 42,
+                                  color: Color(0xff25292D)
+                                )
+                                ),
+                                const SizedBox(height: 16,),
+                                const Text('Если у вас осталась тыква, и вы не знаете что с ней сделать, то это решение для вас! Ароматный, согревающий суп-пюре на кокосовом молоке. Можно даже в Пост! ',
+                                style: TextStyle(
+                                  fontFamily: "Montserrat",
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 18,
+                                  color: Color(0xff4A525A),
+                                )
+                                )
+                              ],
+                              )
+                          )
+                        ],
                       )
                     ]
                   ),
                 ),
               ),
+              Container(
+                margin: EdgeInsets.fromLTRB(278, 150, 0, 0),
+                width: 884,
+                child: Column(
+                  children: [
+                    Text('Поиск рецептов',
+                    style: TextStyle(
+                      fontFamily: "Montserrat",
+                      fontWeight: FontWeight.w700,
+                      fontSize: 42,
+                      color: Color(0xff25292D),
+                    ),
+                    ),
+                    Text('Введите примерное название блюда, а мы по тегам найдем его',
+                    style: TextStyle(
+                      fontFamily: "Mulish",
+                      fontWeight: FontWeight.w400,
+                      fontSize: 18,
+                      color: Color(0xff4A525A),
+                    )
+                    ),
+                    Row(
+                      children: [
+                        Expanded(child: TextField()),
+                        SizedBox(
+                          width: 152,
+                          height: 73,
+                          child: ElevatedButton(
+                            style: ButtonStyle(
+                              shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(16)
+                                )
+                              )
+                            ),
+                            onPressed: (){}, 
+                            child: Text('Поиск',
+                            style: TextStyle(
+                              fontFamily: "Montserrat",
+                              fontWeight: FontWeight.w600,
+                              fontSize: 18,
+                              color: Color(0xffFFFFFF),
+                            )
+                            ),
+                            ),
+                        )
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        TextButton(onPressed: (){}, child: Text('Мясо')),
+                        TextButton(onPressed: (){}, child: Text('Деликатесы')),
+                        TextButton(onPressed: (){}, child: Text('Пироги')),
+                        TextButton(onPressed: (){}, child: Text('Рыба')),
+                      ],
+                    )
+                  ],
+                  ),
+              )
             ],
           ),
           Expanded(child: Align(
             alignment: Alignment.topRight,
-            child: Image.asset("image/Rectangle1.png", width: 602, height: 800,),))
+            child: Image.asset("image/Rectangle1.png", width: 602, height: 800, fit: BoxFit.fill,),)),
+
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              width: 100,
+              height: 100,
+              color: Colors.red,
+            ),
+          )
           ],
         ),
       ),
@@ -307,17 +406,63 @@ class MainPage extends StatelessWidget {
   }
 }
 
-class table_widget extends StatelessWidget {
-  final String text1;
-  final String text2;
-  final String iconString;
-  const table_widget({
-    Key? key, required this.text1, required this.text2, required this.iconString
+class count_like_and_time extends StatelessWidget {
+  const count_like_and_time({
+    Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: const [
+      Icon(Icons.favorite_border,
+      color: Color(0xff000000),
+      ),
+      SizedBox(width: 9,),
+      Text('356',
+      style: TextStyle(
+        fontFamily: "Montserrat",
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
+        color: Color(0xff25292D),
+      )
+      ),
+      SizedBox(width: 30,),
+      Icon(Icons.lock_clock_outlined,
+       color: Color(0xff000000),
+       ),
+      SizedBox(width: 10,),
+      Text('35 минут',
+      style: TextStyle(
+        fontFamily: "Montserrat",
+        fontWeight: FontWeight.w400,
+        fontSize: 16,
+        color: Color(0xff25292D),
+      )),
+    ],);
+  }
+}
+
+class table_widget extends StatelessWidget {
+  final String text1;
+  final String text2;
+  final String iconString;
+  const table_widget(
+      {Key? key,
+      required this.text1,
+      required this.text2,
+      required this.iconString})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(onPressed: (){},
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16)),
+      ),
+        child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
@@ -325,34 +470,45 @@ class table_widget extends StatelessWidget {
           width: 50,
           height: 50,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: Color(0xffFFEFCC)
+              borderRadius: BorderRadius.circular(12),
+              color: Color(0xffFFEFCC)),
+          child: Image.asset(
+            iconString,
+            height: 24,
+            width: 24,
           ),
-          child: Image.asset(iconString, height: 24, width: 24,),
         ),
         Container(
           margin: const EdgeInsets.fromLTRB(24, 24, 0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(text1,
-              style: const TextStyle(
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w700,
-                fontSize: 24,
-              ),),
-              SizedBox(height: 16,),
-              Text(text2,
-              style: const TextStyle(
-                fontFamily: "Montserrat",
-                fontWeight: FontWeight.w400,
-                fontSize: 18,
-        ),
-        )
+              Text(
+                text1,
+                style: const TextStyle(
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                  color: Color(0xff25292D)
+                ),
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              Text(
+                text2,
+                style: const TextStyle(
+                  fontFamily: "Montserrat",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 18,
+                  color: Color(0xff4A525A)
+                ),
+              )
             ],
           ),
         ),
       ],
+    ),
     );
   }
 }
